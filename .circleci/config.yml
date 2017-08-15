@@ -21,3 +21,10 @@ jobs:
           command: |
             docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
             docker push quartic/backer-upper:${CIRCLE_BUILD_NUM}
+
+  workflows:
+    version: 2
+    just_do_it:
+      jobs:
+        - build:
+            context: quartic-global
