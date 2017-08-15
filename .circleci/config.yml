@@ -27,4 +27,4 @@ workflows:
   just_do_it:
     jobs:
       - build:
-          context: quartic-global
+          context: org-global
