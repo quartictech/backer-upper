@@ -1,0 +1,23 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/
+    
+    docker:
+      - image: docker
+
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          reusable: true
+
+      - run:
+          name: Build image
+          command: docker build -t quartic/backer-upper:${CIRCLE_BUILD_NUM} .
+
+      - deploy:
+          command: |
+            docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
+            docker push quartic/backer-upper:${CIRCLE_BUILD_NUM}
