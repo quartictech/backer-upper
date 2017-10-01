@@ -5,7 +5,8 @@ jobs:
     working_directory: ~/backer-upper
     
     docker:
-      - image: quartic/uber-builder:117
+      - image: ${GCLOUD_DOCKER_REPOSITORY}/uber-builder:139
+        auth: { username: _json_key, password: "${GOOGLE_CREDENTIALS}" }
 
     steps:
       - checkout
@@ -23,6 +24,4 @@ jobs:
 
       - run:
           name: Publish Docker image
-          command: |
-            docker tag backer-upper ${GCLOUD_DOCKER_REPOSITORY}/backer-upper:${CIRCLE_BUILD_NUM}
-            docker push ${GCLOUD_DOCKER_REPOSITORY}/backer-upper:${CIRCLE_BUILD_NUM}
+          command: docker-tag-and-push backer-upper ${CIRCLE_BUILD_NUM}
