@@ -2,7 +2,7 @@ version: 2
 
 jobs:
   build:
-    working_directory: ~/
+    working_directory: ~/backer-upper
     
     docker:
       - image: quartic/uber-builder:117
