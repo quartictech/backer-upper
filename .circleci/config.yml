@@ -5,7 +5,7 @@ jobs:
     working_directory: ~/backer-upper
     
     docker:
-      - image: ${GCLOUD_DOCKER_REPOSITORY}/uber-builder:139
+      - image: ${GOOGLE_DOCKER_REPOSITORY}/uber-builder:139
         auth: { username: _json_key, password: "${GOOGLE_CREDENTIALS}" }
 
     steps:
