@@ -2,10 +2,10 @@ version: 2
 
 jobs:
   build:
-    working_directory: ~/
+    working_directory: ~/backer-upper
     
     docker:
-      - image: docker
+      - image: quartic/uber-builder:144
 
     steps:
       - checkout
@@ -14,17 +14,13 @@ jobs:
           reusable: true
 
       - run:
-          name: Build image
-          command: docker build -t quartic/backer-upper:${CIRCLE_BUILD_NUM} .
+          name: Build Docker image
+          command: docker build -t backer-upper .
 
-      - deploy:
-          command: |
-            docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
-            docker push quartic/backer-upper:${CIRCLE_BUILD_NUM}
+      - run:
+          name: GCloud auth
+          command: google-cloud-auth --with-docker
 
-workflows:
-  version: 2
-  just_do_it:
-    jobs:
-      - build:
-          context: org-global
+      - run:
+          name: Publish Docker image
+          command: docker-tag-and-push backer-upper ${CIRCLE_BUILD_NUM}
