@@ -24,6 +24,7 @@ RUN \
         cron \
         rsync \
         ssh \
+        rsyslog \
         unzip && \
     rm -rf /var/lib/apt/lists/*
 
@@ -38,5 +39,5 @@ ADD bin/backup.sh /usr/bin
 RUN chmod +x /usr/bin/backup.sh
 
 # Run the command on container startup
-CMD cron && tail -f /var/log/cron.log
+CMD rsyslogd && cron -L 15 && tail -f /var/log/syslog
 
