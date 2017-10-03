@@ -3,6 +3,7 @@
 HOOK_URL=https://hooks.slack.com/services/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
 CHANNEL=infrastructure
 
+echo "Starting backup"
 OUTPUT=$($BACKUP_SCRIPT 2>&1)
 
 if [ $? -eq 0 ]; then
