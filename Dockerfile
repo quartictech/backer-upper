@@ -28,7 +28,6 @@ RUN \
         unzip && \
     rm -rf /var/lib/apt/lists/*
 
-RUN touch /etc/crontab /etc/cron.d/*
 ADD crontab /etc/cron.d/hello-cron
 RUN chmod 0644 /etc/cron.d/hello-cron
 RUN touch /var/log/cron.log
@@ -40,5 +39,5 @@ ADD bin/backup.sh /usr/bin
 RUN chmod +x /usr/bin/backup.sh
 
 # Run the command on container startup
-CMD rsyslogd && cron -L 15 && tail -f /var/log/syslog
+CMD touch /etc/crontab /etc/cron.*/* && rsyslogd && cron -L 15 && tail -f /var/log/syslog
 
