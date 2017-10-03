@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 HOOK_URL=https://hooks.slack.com/services/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
 CHANNEL=infrastructure
 
 echo "Starting backup"
-OUTPUT=`$BACKUP_SCRIPT`
+OUTPUT=$(/scripts/pg-backup.sh 2>&1)
+echo $OUTPUT
 
 if [ $? -eq 0 ]; then
   echo "Backup succeeded"
