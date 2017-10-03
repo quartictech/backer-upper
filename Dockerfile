@@ -9,6 +9,19 @@ RUN \
 
     apt-get update && \
     apt-get install --no-install-recommends -y \
-        postgresql-client-9.6 && \
+        postgresql-client-9.6 cron && \
     rm -rf /var/lib/apt/lists/*
+
+ADD crontab /etc/cron.d/hello-cron
+RUN chmod 0644 /etc/cron.d/hello-cron
+RUN touch /var/log/cron.log
+ 
+ADD bin/slack.sh /usr/bin
+RUN chmod +x /usr/bin/slack.sh
+
+ADD bin/backup.sh /usr/bin
+RUN chmod +x /usr/bin/backup.sh
+
+# Run the command on container startup
+CMD cron && tail -f /var/log/cron.log
 
