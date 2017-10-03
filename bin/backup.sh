@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 source /etc/cron.env
 
 HOOK_URL=https://hooks.slack.com/services/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
