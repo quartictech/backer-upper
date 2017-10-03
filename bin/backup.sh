@@ -6,7 +6,7 @@ CHANNEL=infrastructure
 
 echo "Starting backup"
 exec 5>&1
-OUTPUT=$(bash /scripts/pg-backup.sh 2>&1 | tee >(cat - >&5))
+OUTPUT=$(set -o pipefail; /scripts/pg-backup.sh 2>&1 | tee >(cat - >&5))
 
 if [ $? -eq 0 ]; then
   echo "Backup succeeded"
