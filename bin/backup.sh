@@ -15,7 +15,7 @@ if [ ${PIPESTATUS[0]} -eq 0 ]; then
       -T "Backup succeeded" \
       -C good
 else
-  >&2 echo "Backup failed!"
+  echo "Backup failed!"
   echo "$OUTPUT" | slack.sh -h $HOOK_URL -c $CHANNEL -u backer-upper -i penguin \
       -T "Backup failed" \
       -C danger
