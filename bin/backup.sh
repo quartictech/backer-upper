@@ -1,5 +1,7 @@
 #!/bin/bash
+set +e
 source /etc/cron.env
+set -e
 
 HOOK_URL=https://hooks.slack.com/services/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
 CHANNEL=infrastructure
