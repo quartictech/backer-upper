@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -euo pipefail
 
 # The cron configs need to be touched because of https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=647193
