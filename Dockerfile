@@ -43,5 +43,5 @@ ADD bin/pg-backup.sh /scripts
 RUN chmod +x /scripts/pg-backup.sh
 
 # Run the command on container startup
-CMD touch /etc/crontab /etc/cron.*/* /var/log/cron.log && env > /etc/cron.env && rsyslogd && cron -L 15 && tail -f /var/log/syslog /var/log/cron.log
+CMD touch /etc/crontab /etc/cron.*/* /var/log/cron.log && set > /etc/cron.env && rsyslogd && cron -L 15 && tail -f /var/log/syslog /var/log/cron.log
 
