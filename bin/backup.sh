@@ -9,7 +9,7 @@ echo "Starting backup"
 exec 5>&1
 OUTPUT=$(bash /scripts/pg-backup.sh 2>&1 | tee >(cat - >&5))
 
-if [ $? -eq 0 ]; then
+if [ ${PIPESTATUS[0]} -eq 0 ]; then
   echo "Backup succeeded"
   echo "$OUTPUT" | slack.sh -h $HOOK_URL -c $CHANNEL -u backer-upper -i penguin \
       -T "Backup succeeded" \
