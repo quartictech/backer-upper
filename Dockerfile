@@ -37,11 +37,14 @@ RUN chmod +x /usr/bin/slack.sh
 ADD bin/backup.sh /usr/bin
 RUN chmod +x /usr/bin/backup.sh
 
+ADD bin/write_env.sh /usr/bin
+RUN chmod +x /usr/bin/write_env.sh
 
 RUN mkdir /scripts
 ADD bin/pg-backup.sh /scripts
 RUN chmod +x /scripts/pg-backup.sh
 
+
 # Run the command on container startup
-CMD touch /etc/crontab /etc/cron.*/* /var/log/cron.log && set > /etc/cron.env && rsyslogd && cron -L 15 && tail -f /var/log/syslog /var/log/cron.log
+CMD touch /etc/crontab /etc/cron.*/* /var/log/cron.log && write_env.sh && rsyslogd && cron -L 15 && tail -f /var/log/syslog /var/log/cron.log
 
