@@ -31,6 +31,7 @@ RUN \
 ADD crontab /etc/cron.d/hello-cron
 RUN chmod 0644 /etc/cron.d/hello-cron
 RUN touch /var/log/cron.log
+RUN touch /etc/crontab
  
 ADD bin/slack.sh /usr/bin
 RUN chmod +x /usr/bin/slack.sh
