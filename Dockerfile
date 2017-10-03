@@ -10,6 +10,7 @@ RUN \
         gnupg && \
 rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /etc/cron.d
 RUN touch /etc/crontab /etc/cron.d/*
 
 RUN \
