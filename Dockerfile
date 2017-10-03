@@ -21,6 +21,7 @@ RUN \
     apt-get install --no-install-recommends -y \
         google-cloud-sdk=173.0.0-0 \
         postgresql-client-9.6 \
+        cron \
         rsync \
         ssh \
         unzip && \
