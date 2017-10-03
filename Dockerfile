@@ -1,15 +1,29 @@
-# This is based on Debian 8.8 (jessie)
-FROM google/cloud-sdk:159.0.0-slim
+FROM debian:9.1
 
+# Prerequisites
 RUN \
-    # Need newer version of Postgres
-    # (see https://www.jurisic.org/index.php?post/2017/02/28/How-to-install-PostgreSQL-9.6-server-on-Debian-8-Jessie)
-    curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc/apt/sources.list.d/postgresql.list && \
-
     apt-get update && \
     apt-get install --no-install-recommends -y \
-        postgresql-client-9.6 cron && \
+        curl \
+        apt-transport-https \
+        ca-certificates \
+        gnupg && \
+rm -rf /var/lib/apt/lists/*
+
+RUN \
+    # GCloud SDK
+    # (see https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu)
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    echo "deb http://packages.cloud.google.com/apt cloud-sdk-stretch main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
+
+    # Finally
+    apt-get update && \
+    apt-get install --no-install-recommends -y \
+        google-cloud-sdk=173.0.0-0 \
+        postgresql-client-9.6 \
+        rsync \
+        ssh \
+        unzip && \
     rm -rf /var/lib/apt/lists/*
 
 ADD crontab /etc/cron.d/hello-cron
